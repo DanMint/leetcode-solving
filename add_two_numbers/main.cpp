@@ -1,40 +1,42 @@
-class Solution {
-public:
-    ListNode* addTwoNumbers (ListNode* l1, ListNode* l2) {
-        ListNode* l3 = nullptr;
-        ListNode* head = nullptr;
-        int carry = 0;
+#include "solution.cpp"
+#include <iostream>
 
-        while (l1 != nullptr || l2 != nullptr) {
-            auto *newNode = new ListNode();
+using std::cout;
+using std::endl;
 
-            if (l3 == nullptr)
-                head = l3 = newNode;
 
-            else
-                l3 = l3->next = newNode;
 
-            const int num =
-                (l1 != nullptr ? l1->val : 0) +
-                (l2 != nullptr ? l2->val : 0) +
-                carry;
 
-            l3->val = num % 10;
-            carry = num / 10;
+int main () {
+    Solution solution;
 
-            if (l1 != nullptr)
-                l1 = l1->next;
+    /// create l1 and l2 (input data)
 
-            if (l2 != nullptr)
-                l2 = l2->next;
-        }
+    auto* l1 = new ListNode(2);
+    l1->next = new ListNode(4);
+    l1->next->next = new ListNode(3);
 
-        if (carry != 0) {
-            auto *lastNode = new ListNode();
-            l3 = l3->next = lastNode;
-            l3->val = carry;
-        }
+    auto* l2 = new ListNode(5);
+    l2->next = new ListNode(6);
+    l2->next->next = new ListNode(4);
 
-        return head;
+    /// run the function that we're testing rn:
+
+    ListNode* l3 = solution.addTwoNumbers(l1, l2);
+
+    /// compare the outputted value with the predicted value.
+    /// (in this case, manually)
+
+    while (l3 != nullptr) {
+        cout << l3->val;
+
+        if (l3->next != nullptr)
+            cout << " -> ";
+
+        l3 = l3->next;
     }
-};
+
+    cout << endl;
+
+    return 0;
+}
