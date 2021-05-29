@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> values;
+    int maxSubArray(vector<int>& nums) {
+        if (nums.size() == 0)
+            return 0;
+        findValues(0,nums);
+        int largest = -1;
+        for (const auto &el : values) {
+            if (largest < el)
+                largest = el;
+        }
+
+        return largest;
+    }
+
+    void findValues (int pos, vector<int> num) {
+        if (pos == num.size()) {
+            values.push_back(num[pos]);
+            return;
+        }
+        int sum = 0;
+        for (int i = pos; i < num.size(); i ++) {
+            sum = sum + num[i];
+            values.push_back(sum);
+        }
+        findValues(pos + 1, num);
+    }
+};
