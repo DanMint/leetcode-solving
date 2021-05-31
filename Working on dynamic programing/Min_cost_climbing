@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        vector<int> costs(cost.size(),0);
+        costs[0] = cost[0];
+        costs[1] = cost[1];
+        findingAll(2,cost,costs);
+        int min = (costs[costs.size()-2] >= costs[costs.size()-1]) ? costs[costs.size() - 1] : costs[costs.size() - 2];
+        return min;
+    }
+
+    void findingAll (int pos, vector<int>& cos, vector<int> &weight) {
+       if (pos >= cos.size())
+           return;
+
+       int minCost = (weight[pos-2] >= weight[pos-1]) ? weight[pos - 1] : weight[pos - 2];
+       minCost+= cos[pos];
+       weight[pos] = minCost;
+       pos++;
+       findingAll(pos, cos, weight);
+    }
+};
